@@ -20,33 +20,33 @@ public class ResponseController {
 	public void resEx01() {}
 	
 	/*
-	 1. Model ê°ì²´ë¥¼ ì‚¬ìš©í•˜ì—¬ ì‘ë‹µí•  í™”ë©´ì— ë°ì´í„°ë¥¼ ì „ì†¡í•˜ê¸°.
+	 1. Model °´Ã¼¸¦ »ç¿ëÇÏ¿© ÀÀ´äÇÒ È­¸é¿¡ µ¥ÀÌÅÍ¸¦ Àü¼ÛÇÏ±â.
 	 
 	@GetMapping("/test")
 	public void test(int age, Model model) {
 		model.addAttribute("age", age);
-		model.addAttribute("nick", "ë©ë©ì´");
+		model.addAttribute("nick", "¸Û¸ÛÀÌ");
 	}
 	*/
 	
-	//2. @ModelAttributeë¥¼ ì‚¬ìš©í•œ í™”ë©´ì— ë°ì´í„° ì „ì†¡ ì²˜ë¦¬
-	//@RequestParam + model.addAttributeì²˜ëŸ¼ ë™ì‘
+	//2. @ModelAttribute¸¦ »ç¿ëÇÑ È­¸é¿¡ µ¥ÀÌÅÍ Àü¼Û Ã³¸®
+	//@RequestParam + model.addAttributeÃ³·³ µ¿ÀÛ
 	@GetMapping("/test")
 	public void test(@ModelAttribute("age") int age, Model model) {
-//		model.addAttribute("age", age); í•  í•„ìš” x
-		model.addAttribute("nick", "ë©ë©ì´");
+//		model.addAttribute("age", age); ÇÒ ÇÊ¿ä x
+		model.addAttribute("nick", "¸Û¸ÛÀÌ");
 	}
 	
 	@GetMapping("/test2")
 	public void test2(@ModelAttribute("info") UserVO vo) {
-		System.out.println("ë©”ì„œë“œ ë‚´ì˜ ì½˜ì†” ì¶œë ¥: " + vo);
+		System.out.println("¸Ş¼­µå ³»ÀÇ ÄÜ¼Ö Ãâ·Â: " + vo);
 	}
 	
-	//3. ModelAndView ê°ì²´ë¥¼ í™œìš©í•œ ì²˜ë¦¬
+	//3. ModelAndView °´Ã¼¸¦ È°¿ëÇÑ Ã³¸®
 	@GetMapping("/test3")
 	public ModelAndView test3() {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("userName", "ê¹€ì² ìˆ˜");
+		mv.addObject("userName", "±èÃ¶¼ö");
 		mv.addObject("userAge", 30);
 		mv.setViewName("/response/test3");
 		
@@ -55,12 +55,12 @@ public class ResponseController {
 	
 	//////////////////////////////////////////////////////////////////////
 	
-	//Redirect ì²˜ë¦¬.
+	//Redirect Ã³¸®.
 	
-	//í¼ í™”ë©´ì„ ì—´ì–´ì£¼ëŠ” ë©”ì„œë“œ
+	//Æû È­¸éÀ» ¿­¾îÁÖ´Â ¸Ş¼­µå
 	@GetMapping("/login")
 	public String login() {
-		System.out.println("/login: GET ìš”ì²­ ë°œìƒ!");
+		System.out.println("/login: GET ¿äÃ» ¹ß»ı!");
 		return "response/res-redirect-form";
 	}
 	
@@ -70,22 +70,22 @@ public class ResponseController {
 						@RequestParam("userPwChk") String pwChk,
 						RedirectAttributes ra) {
 		
-		System.out.println("/login: POST ìš”ì²­ ë°œìƒ!");
+		System.out.println("/login: POST ¿äÃ» ¹ß»ı!");
 		System.out.println("ID: " + id);
 		System.out.println("PW: " + pw);
 		System.out.println("CHK: " + pwChk);
 		
 		if(id.equals("")) {
 			/*
-			 redirect ìƒí™©ì—ì„œ model ê°ì²´ë¥¼ ì‚¬ìš©í•˜ê²Œ ë˜ë©´
-			 model ë‚´ë¶€ì˜ ë°ì´í„°ê°€ ì¬ ìš”ì²­ì´ ë“¤ì–´ì˜¬ ë•Œ íŒŒë¼ë¯¸í„° ê°’ìœ¼ë¡œ ë¶™ì–´ì„œ ë“¤ì–´ì˜µë‹ˆë‹¤.
-			 ë°ì´í„°ê°€ url ì£¼ì†Œ ë’¤ì— ?ì™€ í•¨ê»˜ ë…¸ì¶œë˜ì–´ ì „ë‹¬ë©ë‹ˆë‹¤.
-			 model.addAttribute("msg", "ì•„ì´ë””ëŠ” í•„ìˆ˜ê°’ì…ë‹ˆë‹¤!");
+			 redirect »óÈ²¿¡¼­ model °´Ã¼¸¦ »ç¿ëÇÏ°Ô µÇ¸é
+			 model ³»ºÎÀÇ µ¥ÀÌÅÍ°¡ Àç ¿äÃ»ÀÌ µé¾î¿Ã ¶§ ÆÄ¶ó¹ÌÅÍ °ªÀ¸·Î ºÙ¾î¼­ µé¾î¿É´Ï´Ù.
+			 µ¥ÀÌÅÍ°¡ url ÁÖ¼Ò µÚ¿¡ ?¿Í ÇÔ²² ³ëÃâµÇ¾î Àü´ŞµË´Ï´Ù.
+			 model.addAttribute("msg", "¾ÆÀÌµğ´Â ÇÊ¼ö°ªÀÔ´Ï´Ù!");
 			 */
 			
-			//redirect ìƒí™©ì—ì„œ ì¼íšŒì„±ìœ¼ë¡œ ë°ì´í„°ë¥¼ ì „ì†¡í•  ë•Œ ì‚¬ìš©í•˜ëŠ” ë©”ì„œë“œ.
-			//url ë’¤ì— ë°ì´í„°ê°€ ë¶™ì§€ ì•ŠìŠµë‹ˆë‹¤. í•œ ë²ˆ ì´ìš©í•œ í›„ì—ëŠ” ì•Œì•„ì„œ ì†Œë©¸í•©ë‹ˆë‹¤.
-			ra.addFlashAttribute("msg", "ì•„ì´ë””ëŠ” í•„ìˆ˜ê°’ì´ì—ìš”!");
+			//redirect »óÈ²¿¡¼­ ÀÏÈ¸¼ºÀ¸·Î µ¥ÀÌÅÍ¸¦ Àü¼ÛÇÒ ¶§ »ç¿ëÇÏ´Â ¸Ş¼­µå.
+			//url µÚ¿¡ µ¥ÀÌÅÍ°¡ ºÙÁö ¾Ê½À´Ï´Ù. ÇÑ ¹ø ÀÌ¿ëÇÑ ÈÄ¿¡´Â ¾Ë¾Æ¼­ ¼Ò¸êÇÕ´Ï´Ù.
+			ra.addFlashAttribute("msg", "¾ÆÀÌµğ´Â ÇÊ¼ö°ªÀÌ¿¡¿ä!");
 		}
 		
 		return "redirect:/response/login";

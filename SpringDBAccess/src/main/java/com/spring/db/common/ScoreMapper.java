@@ -18,13 +18,13 @@ public class ScoreMapper implements RowMapper<ScoreVO> {
 		System.out.println("rowNum: " + rowNum);
 		
 		ScoreVO vo = new ScoreVO(
-					rs.getInt("stu_id"),
-					rs.getString("stu_name"),
-					rs.getInt("kor"),
-					rs.getInt("eng"),
-					rs.getInt("math"),
-					rs.getInt("total"),
-					rs.getDouble("average")
+				rs.getInt("stu_id"),
+				rs.getString("stu_name"),
+				rs.getInt("kor"),
+				rs.getInt("eng"),
+				rs.getInt("math"),
+				rs.getInt("total"),
+				rs.getDouble("average")
 				);
 		return vo;
 	}
