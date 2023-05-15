@@ -18,15 +18,15 @@
 			<th>비고</th>
 		</tr>
 		
-		<c:forEach var="article" items="">
+		<c:forEach var="article" items="${articles}">
 			<tr>
-				<td></td>
+				<td>${article.boardNo}</td>
 				<td>
-					<a href="#"></a>
+					<a href="<c:url value='/board/content?boardNo=${article.boardNo}' />">${article.title}</a>
 				</td>
-				<td></td>
+				<td>${article.writer}</td>
 				<td>
-					<a href="#">[삭제]</a>
+					<a href="<c:url value='/board/delete?boardNo=${article.boardNo}' />">[삭제]</a>
 				</td>
 			</tr>
 		</c:forEach>

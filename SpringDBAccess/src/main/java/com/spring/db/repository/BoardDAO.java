@@ -7,26 +7,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.db.model.BoardVO;
 
+@Repository
 public class BoardDAO implements IBoardDAO {
 	
-	public class BoardMapper implements RowMapper<BoardVO> {
+	//내부 클래스 선언
+	class BoardMapper implements RowMapper<BoardVO> {
 
 		@Override
-		public BoardVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			System.out.println("mapRow 메서드 호출!");
-			System.out.println("rowNum: " + rowNum);
-			
-			BoardVO vo = new BoardVO(
+		public BoardVO mapRow(ResultSet rs, int rowNum) throws SQLException {			
+			return new BoardVO(
 					rs.getInt("board_no"),
 					rs.getString("writer"),
 					rs.getString("title"),
 					rs.getString("content"),
 					rs.getTimestamp("reg_date").toLocalDateTime()
 					);
-			return vo;
 		}
 		
 	}
@@ -36,7 +35,8 @@ public class BoardDAO implements IBoardDAO {
 
 	@Override
 	public void insertArticle(BoardVO vo) {
-		String sql = "INSERT INTO jdbc_board (writer, title, content) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO jdbc_board (writer, title, content) "
+				+ "VALUES (?, ?, ?)";
 		template.update(sql, vo.getWriter(), vo.getTitle(), vo.getContent());
 	}
 
@@ -48,20 +48,23 @@ public class BoardDAO implements IBoardDAO {
 
 	@Override
 	public BoardVO getArticle(int bno) {
-		
-		return null;
+		String sql = "SELECT * FROM jdbc_board WHERE board_no = ?";
+		return template.queryForObject(sql, new BoardMapper(), bno);
 	}
 
 	@Override
-	public void deleteArticle(int bno) {
-		
-
+	public void deleteArticle(int bno) {		
+		String sql = "DELETE FROM jdbc_board WHERE board_no = ?";
+		template.update(sql, bno);
 	}
 
 	@Override
 	public void updateArticle(BoardVO vo) {
-		
-
+		String sql = "UPDATE jdbc_board "
+				+ "SET writer=?, title=?, content=? "
+				+ "WHERE board_no = ?";
+		template.update(sql, vo.getWriter(), vo.getTitle(), 
+				vo.getContent(), vo.getBoardNo());
 	}
 
 }
