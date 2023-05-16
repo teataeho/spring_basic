@@ -7,59 +7,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.basic.model.UserVO;
 
-//ÀÚµ¿À¸·Î ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡ ÇØ´ç Å¬·¡½ºÀÇ ºóÀ» µî·ÏÇÏ´Â ¾Æ³ëÅ×ÀÌ¼Ç
-//ºóÀ» µî·ÏÇØ ³ö¾ß HandlerMappingÀÌ ÀÌ Å¬·¡½ºÀÇ °´Ã¼¸¦ °Ë»öÇÒ ¼ö ÀÖÀ» °ÍÀÌ´Ù.
+//ìžë™ìœ¼ë¡œ ìŠ¤í”„ë§ ì»¨í…Œì´ë„ˆì— í•´ë‹¹ í´ëž˜ìŠ¤ì˜ ë¹ˆì„ ë“±ë¡í•˜ëŠ” ì•„ë…¸í…Œì´ì…˜
+//ë¹ˆì„ ë“±ë¡í•´ ë†”ì•¼ HandlerMappingì´ ì´ í´ëž˜ìŠ¤ì˜ ê°ì²´ë¥¼ ê²€ìƒ‰í•  ìˆ˜ ìžˆì„ ê²ƒì´ë‹¤.
 @Controller
-@RequestMapping("/request") //ÄÁÆ®·Ñ·¯ ÀÚÃ¼¿¡ °øÅëµÈ URI ¸ÊÇÎ
+@RequestMapping("/request") //ì»¨íŠ¸ë¡¤ëŸ¬ ìžì²´ì— ê³µí†µëœ URI ë§µí•‘
 public class RequestController {
 
 	public RequestController() {
-		System.out.println("RequestCon »ý¼º!");
+		System.out.println("RequestCon ìƒì„±!");
 	}
 	
 	@RequestMapping("/test")
 	public String testCall() {
-		System.out.println("/request/test ¿äÃ»ÀÌ µé¾î¿È!");
+		System.out.println("/request/test ìš”ì²­ì´ ë“¤ì–´ì˜´!");
 		return "test";
 	}
 	
 	/*
-    ¸¸¾à »ç¿ëÀÚ°¡ /request/req ¿äÃ»À» º¸³» ¿ÔÀ» ¶§
-    viewsÆú´õ ¾Æ·¡¿¡ requestÆú´õ ¾È¿¡ Á¸ÀçÇÏ´Â
-    req-ex01.jspÆÄÀÏÀ» ¿­µµ·Ï ¸Þ¼­µå¸¦ ±¸¼ºÇØ º¸¼¼¿ä.
-   */
+    ë§Œì•½ ì‚¬ìš©ìžê°€ /request/req ìš”ì²­ì„ ë³´ë‚´ ì™”ì„ ë•Œ
+    viewsí´ë” ì•„ëž˜ì— requestí´ë” ì•ˆì— ì¡´ìž¬í•˜ëŠ”
+    req-ex01.jspíŒŒì¼ì„ ì—´ë„ë¡ ë©”ì„œë“œë¥¼ êµ¬ì„±í•´ ë³´ì„¸ìš”.
+    */
 	
 	//@RequestMapping(value = "/request/basic01", method = RequestMethod.GET)
 	@GetMapping("/basic01")
 	public String req() {
-		System.out.println("/request/basic01 ¿äÃ»ÀÌ µé¾î¿È!: GET ¹æ½Ä!");
+		System.out.println("/request/basic01 ìš”ì²­ì´ ë“¤ì–´ì˜´!: GET ë°©ì‹!");
 		return "request/req-ex01";
 	}
 	
 	//@RequestMapping(value = "/request/basic01", method = RequestMethod.POST)
 	@PostMapping("/basic01")
 	public String basic() {
-		System.out.println("/request/basic01 ¿äÃ»ÀÌ µé¾î¿È!: POST ¹æ½Ä");
+		System.out.println("/request/basic01 ìš”ì²­ì´ ë“¤ì–´ì˜´!: POST ë°©ì‹");
 		return "request/req-ex01";
 	}
 	
 	////////////////////////////////////////////////////////////////////////
 	
-	//ÄÁÆ®·Ñ·¯ ³»ÀÇ ¸Þ¼­µå Å¸ÀÔÀ» void·Î ¼±¾ðÇÏ¸é
-	//¿äÃ»ÀÌ µé¾î¿Â URL°ªÀ» ºä ¸®Á¹¹ö¿¡°Ô Àü´ÞÇÕ´Ï´Ù.
+	//ì»¨íŠ¸ë¡¤ëŸ¬ ë‚´ì˜ ë©”ì„œë“œ íƒ€ìž…ì„ voidë¡œ ì„ ì–¸í•˜ë©´
+	//ìš”ì²­ì´ ë“¤ì–´ì˜¨ URLê°’ì„ ë·° ë¦¬ì¡¸ë²„ì—ê²Œ ì „ë‹¬í•©ë‹ˆë‹¤.
 	@GetMapping("/join")
 	public void register() {
 		System.out.println("/request/join: GET");
 	}
 	
-	//¿äÃ» URI ÁÖ¼Ò°¡ °°´õ¶óµµ, Àü¼Û ¹æ½Ä¿¡ µû¶ó ¸ÊÇÎÀ» ´Ù¸£°Ô ÇÏ±â ¶§¹®¿¡
-	//°°Àº ÁÖ¼Ò¸¦ »ç¿ëÇÏ´Â °ÍÀÌ °¡´ÉÇÕ´Ï´Ù. (GET -> È­¸éÃ³¸®, POST -> ÀÔ·Â°ª Ã³¸®)
+	//ìš”ì²­ URI ì£¼ì†Œê°€ ê°™ë”ë¼ë„, ì „ì†¡ ë°©ì‹ì— ë”°ë¼ ë§µí•‘ì„ ë‹¤ë¥´ê²Œ í•˜ê¸° ë•Œë¬¸ì—
+	//ê°™ì€ ì£¼ì†Œë¥¼ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ ê°€ëŠ¥í•©ë‹ˆë‹¤. (GET -> í™”ë©´ì²˜ë¦¬, POST -> ìž…ë ¥ê°’ ì²˜ë¦¬)
 	
 	/*
-	 # ½ºÇÁ¸µ¿¡¼­ ¿äÃ»°ú ÇÔ²² Àü´ÞµÈ µ¥ÀÌÅÍ¸¦ Ã³¸®ÇÏ´Â ¹æ½Ä
+	 # ìŠ¤í”„ë§ì—ì„œ ìš”ì²­ê³¼ í•¨ê»˜ ì „ë‹¬ëœ ë°ì´í„°ë¥¼ ì²˜ë¦¬í•˜ëŠ” ë°©ì‹
 	 
-	 1. ÀüÅëÀûÀÎ jsp/servlet ¹æ½ÄÀÇ ÆÄ¶ó¹ÌÅÍ ÀÐ±â Ã³¸® ¹æ¹ý.
-	 - HttpServletRequest °´Ã¼¸¦ È°¿ë (¿ì¸®°¡ jsp¿¡¼­ »ç¿ëÇÏ´ø ¹æ½Ä)
+	 1. ì „í†µì ì¸ jsp/servlet ë°©ì‹ì˜ íŒŒë¼ë¯¸í„° ì½ê¸° ì²˜ë¦¬ ë°©ë²•.
+	 - HttpServletRequest ê°ì²´ë¥¼ í™œìš© (ìš°ë¦¬ê°€ jspì—ì„œ ì‚¬ìš©í•˜ë˜ ë°©ì‹)
 	
 	
 	@PostMapping("/join")
@@ -73,9 +73,9 @@ public class RequestController {
 	 */
 	
 	/*
-	 2. @RequestParam ¾Æ³ëÅ×ÀÌ¼ÇÀ» ÀÌ¿ëÇÑ ¿äÃ» ÆÄ¶ó¹ÌÅÍ Ã³¸®.
-	 @RequestParam("ÆÄ¶ó¹ÌÅÍ º¯¼ö¸í") °ªÀ» ¹Þ¾Æ¼­ Ã³¸®ÇÒ º¯¼ö
-	 ÆÄ¶ó¹ÌÅÍ º¯¼ö¸í°ú °ªÀ» ¹ÞÀ» º¯¼ö¸íÀ» µ¿ÀÏÇÏ°Ô ÀÛ¼ºÇÏ¸é @RequestParam »ý·« °¡´É.
+	 2. @RequestParam ì•„ë…¸í…Œì´ì…˜ì„ ì´ìš©í•œ ìš”ì²­ íŒŒë¼ë¯¸í„° ì²˜ë¦¬.
+	 @RequestParam("íŒŒë¼ë¯¸í„° ë³€ìˆ˜ëª…") ê°’ì„ ë°›ì•„ì„œ ì²˜ë¦¬í•  ë³€ìˆ˜
+	 íŒŒë¼ë¯¸í„° ë³€ìˆ˜ëª…ê³¼ ê°’ì„ ë°›ì„ ë³€ìˆ˜ëª…ì„ ë™ì¼í•˜ê²Œ ìž‘ì„±í•˜ë©´ @RequestParam ìƒëžµ ê°€ëŠ¥.
 	 
 	@PostMapping("/join")
 	public void register(String userId,
@@ -90,8 +90,8 @@ public class RequestController {
 	
 	
 	/*
-	 3. Ä¿¸Çµå °´Ã¼¸¦ È°¿ëÇÑ ÆÄ¶ó¹ÌÅÍ Ã³¸®
-	 - ÆÄ¶ó¹ÌÅÍ µ¥ÀÌÅÍ¿Í ¿¬µ¿µÇ´Â VO Å¬·¡½º°¡ ÇÊ¿äÇÕ´Ï´Ù.
+	 3. ì»¤ë§¨ë“œ ê°ì²´ë¥¼ í™œìš©í•œ íŒŒë¼ë¯¸í„° ì²˜ë¦¬
+	 - íŒŒë¼ë¯¸í„° ë°ì´í„°ì™€ ì—°ë™ë˜ëŠ” VO í´ëž˜ìŠ¤ê°€ í•„ìš”í•©ë‹ˆë‹¤.
 	 */
 	
 	@PostMapping("/join")
