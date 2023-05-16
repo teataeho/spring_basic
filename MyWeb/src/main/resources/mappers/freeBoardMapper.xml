@@ -22,7 +22,8 @@
 	
 	<update id="update">
 		UPDATE freeboard 
-		SET title = #{title}, content = #{content} 
+		SET title = #{title}, content = #{content},
+		update_date = current_timestamp
 		WHERE bno = #{bno}
 	</update>
 	
