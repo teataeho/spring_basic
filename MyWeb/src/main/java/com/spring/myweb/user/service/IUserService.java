@@ -1,7 +1,5 @@
 package com.spring.myweb.user.service;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.spring.myweb.command.UserVO;
 
 public interface IUserService {

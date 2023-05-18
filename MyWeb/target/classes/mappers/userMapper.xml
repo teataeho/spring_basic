@@ -8,7 +8,7 @@
 		SELECT COUNT(*)
 		FROM users
 		WHERE user_id = #{id}
-	</select>	
+	</select>
 	
 	<insert id="join">
 		INSERT INTO users
