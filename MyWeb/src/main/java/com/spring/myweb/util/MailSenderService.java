@@ -59,7 +59,7 @@ public class MailSenderService {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 			
 			helper.setFrom(setFrom);
-			helper.setSubject(toMail);
+			helper.setTo(toMail);
 			helper.setSubject(title);
 			//true -> html 형식으로 전송, 값을 안주면 단순 텍스트로 전달.
 			helper.setText(content, true);

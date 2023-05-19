@@ -112,6 +112,8 @@
 <%@ include file="../include/footer.jsp" %>
 
     <script>
+
+        let code = ''; //이메일 전송 인증번호 저장을 위한 변수
     	
     	//아이디 중복 체크
     	document.getElementById('idCheckBtn').onclick = function() {
@@ -203,13 +205,48 @@
         document.getElementById('mail-check-btn').onclick = function() {
             const email = document.getElementById('userEmail1').value + document.getElementById('userEmail2').value;
             console.log('완성된 email: ' + email);
-            fetch('${pageContext.request.contextPath}/user/mailCheck?email=' + email);
+            fetch('${pageContext.request.contextPath}/user/mailCheck?email=' + email)
+            .then(res => res.text())
+            .then(data => {
+            	console.log('인증번호: ' + data)
+                //비활성된 인증번호 입력창을 활성화
+                document.querySelector('.mail-check-input').disabled = false;
+                code = data; //인증번호를 전역번수에 저장
+                alert('인증번호가 전송되었습니다. 확인 후 입력란에 정확히 입력하세요!');
+            }); //비동기 끝
+
+        } //인증번호 이벤트 끝.
+
+        //인증번호 검증
+        //blur -> focus가 벗어나는 경우 발생.
+        document.querySelector('.mail-check-input').onblur = e => {
+            // console.log('blur 이벤트 발생 확인!');
+            const inputCode = e.target.value; //사용자가 입력한 인증번호.
+            const $resultMsg = document.getElementById('mail-check-warn');
+            console.log('사용자가 입력한 값: ' + inputCode);
+
+            if(inputCode === code) {
+                $resultMsg.textContent = '인증번호가 일치합니다.';
+                $resultMsg.style.color = 'green';
+                //이메일 인증을 더이상 못하게 버튼 활성
+                document.getElementById('mail-check-btn').disabled = true;
+                document.getElementById('userEmail1').setAttribute('readonly', true);
+                document.getElementById('userEmail2').setAttribute('readonly', true);
+                e.target.style.display = 'none'; //인증번호 입력창 숨기기
+
+                //초기값을 사용자가 선택한 값으로 무조건 설정하는 방법(select태그에서 readonly 대용)
+                //항상 2개 같이 쓰셔야 해요.
+                const $email2 = document.getElementById('userEmail2');
+
+                $email2.setAttribute('onFocus', 'this.initialSelect = this.selectedIndex');
+                $email2.setAttribute('onChange', 'this.selectedIndex = this.initialSelect');
+
+            } else {
+                $resultMsg.textContent = '인증번호를 다시 확인해 주세요.';
+                $resultMsg.style.color = 'red';
+                e.target.focus(); //다시 입력할 수 있도록 포커싱 주기.
+            }
         }
-    
-    
-    
-    
-    
     
         /*아이디 형식 검사 스크립트*/
         var id = document.getElementById("userId");
@@ -221,7 +258,7 @@
             	메타 문자 입니다.
             */
             /*test메서드를 통해 비교하며, 매칭되면 true, 아니면 false반*/
-            var regex = /^[A-Za-z0-9+]{4,12}$/; 
+            var regex = /^[A-Za-z0-9+]{4,12}$/;
             if(regex.test(document.getElementById("userId").value )) {
                 document.getElementById("userId").style.borderColor = "green";
                 document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다";
