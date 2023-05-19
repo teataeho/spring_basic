@@ -64,9 +64,7 @@ public class MailSenderService {
 			//true -> html 형식으로 전송, 값을 안주면 단순 텍스트로 전달.
 			helper.setText(content, true);
 			
-			//메일 전송
 			mailSender.send(message);
-			
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
