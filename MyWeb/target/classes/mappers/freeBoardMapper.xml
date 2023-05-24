@@ -39,9 +39,10 @@
 	</insert>
 	
 	<select id="getList" resultType="board">
-		SELECT * FROM freeboard
+		SELECT b.*, (SELECT COUNT(*) FROM freereply r WHERE b.bno = r.bno) AS reply_cnt
+		FROM freeboard b
 		<include refid="search" />
-		ORDER BY bno DESC
+		ORDER BY b.bno DESC
 		LIMIT #{pageStart}, #{cpp}
 	</select>
 	
