@@ -79,15 +79,13 @@ public class SnsBoardService implements ISnsBoardService {
 	}
 
 	@Override
-	public SnsBoardVO getDetail(int bno) {
-		
-		return null;
+	public SnsBoardVO getDetail(int bno) {		
+		return mapper.getDetail(bno);
 	}
 
 	@Override
-	public void delete(int bno) {
-		
-
+	public void delete(int bno) {		
+		mapper.delete(bno);
 	}
 
 }
